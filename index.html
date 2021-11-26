@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVER 영화</title>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> -->
+    <link rel="stylesheet" href="swiper.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="inner">
+            <h1 class="logo"><span>영화</span></h1>
+            <div class="movie__search">
+                <form id="search__form">
+                    <fieldset>
+                        <legend>검색</legend>
+                        <input id="search__value" type="text" name="search" placeholder="영화 검색">
+                        <button type="submit" class="search__btn">검색</button>                        
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </header>
+    <div class="search__contents">
+        <div class="inner">
+            <ul class="search__detail"></ul>
+        </div>
+        <div class="modal">
+            <div class="modal_body">
+                <div class="poster"><img src="" alt=""></div>
+                <ul class="detail">
+                    <li class="movie__name"><strong></strong></li>
+                    <li class="open__date"></li>
+                    <li class="etc">
+                        <span class="genre"></span>
+                        <span class="nation"></span>
+                        <span class="rating"></span>
+                        <span class="runtime"></span>
+                    </li>
+                    <li class="text__inner">
+                        <ul>
+                            <li class="company"></li>
+                            <li class="director__name"></li>
+                            <li class="actor__name"></li>
+                            <li class="plot"></li>
+                        </ul>
+                    </li>
+                </ul>
+    
+            </div>
+          </div>
+    </div>
+    <div class="sec01">
+        <div class="inner">
+            <div class="swiper swiper-container">
+                <ol class="swiper-wrapper">
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">1</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">2</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">3</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">4</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">5</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">6</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">7</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">8</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">9</span>
+                        <img src="" alt="">
+                    </li>
+                    <li class="swiper-slide">
+                        <span class="poster__ranking">10</span>
+                        <img src="" alt="">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="sec02">
+        <div class="inner">
+            <ul class="detail">
+                <li class="movie__name"><strong></strong></li>
+                <li class="open__date"></li>
+                <li class="ranking"></li>
+                <li class="counting"></li>
+                <li class="etc">
+                    <span class="genre"></span>
+                    <span class="nation"></span>
+                    <span class="rating"></span>
+                    <span class="runtime"></span>
+                </li>
+                <li class="text__inner">
+                    <ul>
+                        <li class="company"></li>
+                        <li class="director__name"></li>
+                        <li class="actor__name"></li>
+                        <li class="plot"></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="iframe">
+
+                <iframe id="iframe" src="" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <script src="swiper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.1/dist/polyfill.min.js"></script>
+    <!-- ie promise 사용 가능 srcript -->
+    <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0/dist/fetch.umd.min.js"></script>
+    <!-- ie fetch 사용 가능 srcript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <!-- ie async 사용 가능 srcript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+    <!-- ie async 사용 가능 srcript -->
+    <!-- <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script> -->
+    <script type="text/babel" src="index.js"></script>
+    <script type="text/babel" src="search.js"></script>
+    <!-- <script type="text/babel" src="scroll.js"></script> -->
+</body>
+
+</html>

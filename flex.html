@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        .inner{
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .inner ul{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .inner ul li{
+            padding:10px;
+            width:600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="inner">
+        <ul>
+            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus suscipit eos nihil impedit iusto ex officia repudiandae laudantium cumque facere dolorum iure delectus saepe, fugiat officiis corrupti id modi obcaecati?</li>
+            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus suscipit eos nihil impedit iusto ex officia repudiandae laudantium cumque facere dolorum iure delectus saepe, fugiat officiis corrupti id modi obcaecati?</li>
+            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus suscipit eos nihil impedit iusto ex officia repudiandae laudantium cumque facere dolorum iure delectus saepe, fugiat officiis corrupti id modi obcaecati?</li>
+            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus suscipit eos nihil impedit iusto ex officia repudiandae laudantium cumque facere dolorum iure delectus saepe, fugiat officiis corrupti id modi obcaecati?</li>
+        </ul>
+    </div>
+    <script>
+        if(window.location.protocol === "https:"){
+            window.location.href = window.location.href.replace('https:', 'http:');
+        }
+        console.log(window.location.href);
+        // window.location.href = "https://www.naver.com";
+    </script>
+</body>
+</html>

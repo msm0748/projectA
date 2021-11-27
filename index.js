@@ -104,7 +104,7 @@ const ratingSpan = sec02.querySelector(".rating");
 const runtimeSpan = sec02.querySelector(".runtime");
 const countTag = sec02.querySelector(".counting");
 const companyLi = sec02.querySelector(".company");
-const plotLi = sec02.querySelector(".plot");
+const plotP = sec02.querySelector(".plot");
 
 function animateValue(obj, start, end, duration) {
   let startTimestamp = null;
@@ -137,7 +137,7 @@ function detailTagFnc(movieLength) {
 
   genreSpan.innerText = movieDetailArray[movieLength].genre.replace(/,/g, ", ");
   nationSpan.innerText = movieDetailArray[movieLength].nation;
-  plotLi.innerText = movieDetailArray[movieLength].plots;
+  plotP.innerText = movieDetailArray[movieLength].plots;
   switch (movieDetailArray[movieLength].rating) {
     case "18세관람가(청소년관람불가)":
       ratingSpan.innerText = "18세↑";
@@ -203,7 +203,7 @@ function swiper() {
         let loopActiveIndex = this.activeIndex;
         swiperAcitve = swiperLi[loopActiveIndex];
         createBtn.classList.add("detail_btn");
-        createBtn.innerText = "상세 보기";
+        createBtn.innerText = "상세보기";
         swiperAcitve.appendChild(createBtn);
         detailBtn = document.querySelector(".detail_btn");
       },

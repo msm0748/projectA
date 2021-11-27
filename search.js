@@ -5,13 +5,20 @@ let movieNames = new Array();
 let openDate = new Array();
 let movieListLiIndex;
 // function formSubmit(){
+
+const ani = document.querySelector(".search__contents .inner");
+
+const contentArrow = searchContents.querySelector(".content__arrow");
+contentArrow.addEventListener("click", function () {
+  ani.style.animationName = "none";
+});
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   searchContents.style.display = "block";
   searchValue = document.getElementById("search__value").value;
+  searchValue = encodeURIComponent(searchValue);
   movieSearchFnc(searchValue);
 });
-// }
 const movieList = document.querySelector(".search__detail");
 
 let searchMovieArray = new Array();
@@ -40,7 +47,7 @@ async function movieSearchFnc(movieName) {
     const directorNm = dataResult[i].directors.director[0].directorNm;
     const actor = dataResult[i].actors.actor;
     const runtime = dataResult[i].runtime;
-    const genre = dataResult[i].genre;
+    const genre = dataResult[i].genre.replace(/,/g, ", ");
     const rating = dataResult[i].rating;
     const nation = dataResult[i].nation;
     const plots = dataResult[i].plots.plot[0].plotText;
@@ -65,17 +72,28 @@ async function movieSearchFnc(movieName) {
     ) {
       const movieListLi = document.createElement("li");
       const posterTag = document.createElement("img");
-      const titleTag = document.createElement("h2");
+      const titleTag = document.createElement("p");
+      const titleStrongTag = document.createElement("strong");
       const plotTag = document.createElement("p");
+      const ratingTag = document.createElement("p");
+      const genreTag = document.createElement("p");
+      const openingDateTag = document.createElement("p");
       const movieArt = document.createElement("div");
       movieArt.classList.add("movieArt");
       const moviePoster = document.createElement("div");
       posterTag.src = mainPoster;
-      titleTag.innerText = title;
-      plotTag.innerText = dataResult[i].plots.plot[0].plotText;
+      titleStrongTag.innerText = title;
+      openingDateTag.innerText = openingDate.slice(0, 4);
+      genreTag.innerText = genre;
+      ratingTag.innerText = rating;
+      plotTag.innerText = plots;
+      titleTag.appendChild(titleStrongTag);
       moviePoster.appendChild(posterTag);
       movieListLi.appendChild(moviePoster);
       movieArt.appendChild(titleTag);
+      movieArt.appendChild(openingDateTag);
+      movieArt.appendChild(genreTag);
+      movieArt.appendChild(ratingTag);
       movieArt.appendChild(plotTag);
       movieListLi.appendChild(movieArt);
       movieList.appendChild(movieListLi);
@@ -204,49 +222,3 @@ function kmdbFn(
   modalPlotLi.innerText = plots;
   modalCompanyLi.innerText = company;
 }
-// async function kmdbFn(movieNm, open) {
-//   let moviePosterValue = {
-//     key: `?ServiceKey=RKHFT107IUJ283GC7UPM`,
-//     collection: `&collection=kmdb_new2`,
-//     title: `&title=${movieNm}`,
-//     openDay: `&releaseDts=${open}`,
-//   };
-//   let url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.openDay}`;
-//   let response = await fetch(url);
-//   let data = await response.json();
-//   console.log(data);
-//   const dataResult = data.Data[0].Result[0];
-//   modalActorNmLi.innerText = "";
-//   let actorTextnode;
-//   let actor = dataResult.actors.actor;
-//   // let posters = dataResult.posters;
-//   // let mainPoster = posters.split("|")[0]; //여러개 이미지를 |를 기준으로 잘라서 첫번째 배열을 가져오기
-//   // dataResult.poster = mainPoster;
-//   // dataResult.openingDate = dataResult.repRlsDate;
-//   for (let i = 0; i < actor.length; i++) {
-//     if (actor.length >= 10) {
-//       // 배우 최대 10명만 출력
-//       if (i < 9) {
-//         actorTextnode = document.createTextNode(actor[i].actorNm + ", ");
-//       } else if (i === 9) {
-//         actorTextnode = document.createTextNode(actor[9].actorNm);
-//       }
-//     } else {
-//       if (i < actor.length - 1) {
-//         actorTextnode = document.createTextNode(actor[i].actorNm + ", ");
-//       } else {
-//         actorTextnode = document.createTextNode(actor[i].actorNm);
-//       }
-//     }
-//     modalActorNmLi.appendChild(actorTextnode);
-//   }
-//   modalDirectorNmLi.innerText = dataResult.directors.director[0].directorNm;
-//   // actorNmLi.innerText = dataResult.actors.actor;
-//   modalRuntimeSpan.innerText = dataResult.runtime;
-//   modalGenreSpan.innerText = dataResult.genre;
-//   modalRatingSpan.innerText = dataResult.rating;
-//   modalNationSpan.innerText = dataResult.nation;
-//   modalPlotLi.innerText = dataResult.plots.plot[0].plotText;
-//   modalCompanyLi.innerText = dataResult.company;
-//   console.log(data.Data[0].Result);
-// }

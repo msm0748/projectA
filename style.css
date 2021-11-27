@@ -1,5 +1,6 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Montagu+Slab:wght@500&display=swap");
+@import url("button.css");
 * {
   padding: 0;
   margin: 0;
@@ -28,13 +29,13 @@ header .inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 1;
+  flex: 1 0 auto;
 }
 header .inner .logo::before {
   display: inline-block;
-  width: 222px;
+  width: 169px;
   height: 52px;
-  background-position: 0 -158px;
+  background-position: -55px -158px;
   background-repeat: no-repeat;
   vertical-align: top;
   content: "";
@@ -48,7 +49,7 @@ header .inner .logo span {
   color: white;
 }
 header .inner .movie__search {
-  width: 600px;
+  width: 450px;
   height: 50px;
   border: #03c75a 2px solid;
   overflow: hidden;
@@ -60,7 +61,7 @@ header .inner .movie__search input {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 540px;
+  width: 390px;
   border: none;
   padding: 10px;
   outline: none;
@@ -82,10 +83,55 @@ header .inner .movie__search button {
 .search__contents {
   display: none;
 }
+
+.search__contents label .content__arrow {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  background-image: url("pngwing.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.search__contents input {
+  display: none;
+}
+.search__contents input:checked ~ label .content__arrow {
+  transform: rotate(180deg);
+}
+.search__contents input:checked ~ .inner {
+  height: 0;
+}
 .search__contents .inner {
-  overflow-y: auto;
+  transition: height 1s;
+  animation-name: sample;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
   height: 350px;
-  background-color: #211c1b;
+  overflow-y: auto;
+  background-color: #292a2d;
+  box-shadow: 5px 10px 30px 1px black inset;
+}
+.search__contents .inner::-webkit-scrollbar {
+  width: 10px;
+}
+.search__contents .inner::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+.search__contents .inner::-webkit-scrollbar-track {
+  background: black;
+  border: 1px solid black;
+}
+@keyframes sample {
+  /* 일회용 */
+  from {
+    height: 0;
+  }
+  to {
+    height: 350px;
+  }
 }
 .search__contents .inner .search__detail {
   display: flex;
@@ -103,6 +149,20 @@ header .inner .movie__search button {
 .search__contents .inner .search__detail li .movieArt {
   color: white;
   padding-left: 20px;
+}
+.search__contents .inner .search__detail li .movieArt * {
+  margin-bottom: 15px;
+}
+.search__contents .inner .search__detail li .movieArt p strong {
+  font-size: 1.6rem;
+}
+.search__contents .inner .search__detail li .movieArt p:last-child {
+  line-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .search__contents .modal {
   position: fixed;
@@ -159,13 +219,15 @@ header .inner .movie__search button {
 .sec01 .swiper .swiper-slide.swiper-slide-active {
   position: relative;
 }
+
 .sec01 .swiper .swiper-slide.swiper-slide-active .detail_btn {
-  padding: 10px;
-  background-color: green;
+  text-align: center;
+  display: block;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  cursor: pointer;
 }
 
 .sec01 .swiper .swiper-wrapper .swiper-slide .poster__ranking {
@@ -198,9 +260,11 @@ header .inner .movie__search button {
 }
 
 .sec02 .inner {
+  color: #fff;
   max-width: 960px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .sec02 .inner .iframe {
@@ -225,28 +289,25 @@ header .inner .movie__search button {
 }
 
 .sec02 .inner .detail {
-  color: #fff;
   width: 50%;
   padding-right: 20px;
 }
 
-.sec02 .inner .detail > li:not(.etc) {
-  /* font-size: 1.2rem; */
-}
 .sec02 .inner .detail li.movie__name {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
 }
 
 .sec02 .inner .detail li.open__date {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
-.sec02 .inner .detail > li:not(.text__inner) {
-  /* text-align: center; */
-}
 .sec02 .inner .detail .ranking {
   margin-top: 20px;
+}
+.sec02 .inner .detail .counting {
+  margin: 5px 0;
 }
 .sec02 .inner .detail .etc span {
   margin-right: 20px;
@@ -267,16 +328,14 @@ header .inner .movie__search button {
   right: -14px;
 }
 .sec02 .inner .detail .text__inner {
-  /* max-width: 800px; */
-  margin: 50px auto;
+  margin-top: 25px;
 }
-.sec02 .inner .detail .text__inner ul *:not(.plot) {
+.sec02 .inner .detail .text__inner ul {
   font-weight: bold;
   color: #464646;
 }
-
-.sec02 .inner .detail .text__inner ul .plot {
-  margin-top: 15px;
+.sec02 .inner .plot {
+  margin-top: 25px;
   line-height: 25px;
   word-break: keep-all;
 }

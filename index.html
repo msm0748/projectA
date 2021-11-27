@@ -19,17 +19,19 @@
                 <form id="search__form">
                     <fieldset>
                         <legend>검색</legend>
-                        <input id="search__value" type="text" name="search" placeholder="영화 검색">
-                        <button type="submit" class="search__btn">검색</button>                        
+                        <input id="search__value" type="text" name="search" placeholder="영화명 검색">
+                        <button type="submit" class="search__btn">검색</button>
                     </fieldset>
                 </form>
             </div>
         </div>
     </header>
     <div class="search__contents">
+        <input type="checkbox" id="arrow">
         <div class="inner">
             <ul class="search__detail"></ul>
         </div>
+        <label for="arrow"><div class="content__arrow"></div></label>
         <div class="modal">
             <div class="modal_body">
                 <div class="poster"><img src="" alt=""></div>
@@ -51,9 +53,9 @@
                         </ul>
                     </li>
                 </ul>
-    
+
             </div>
-          </div>
+        </div>
     </div>
     <div class="sec01">
         <div class="inner">
@@ -121,16 +123,15 @@
                         <li class="company"></li>
                         <li class="director__name"></li>
                         <li class="actor__name"></li>
-                        <li class="plot"></li>
                     </ul>
                 </li>
             </ul>
             <div class="iframe">
-
                 <iframe id="iframe" src="" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
             </div>
+            <p class="plot"></p>
         </div>
     </div>
     <script src="swiper.min.js"></script>

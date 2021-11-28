@@ -258,7 +258,9 @@ header .inner .movie__search button {
 .sec01 .swiper .swiper-wrapper .swiper-slide p {
   font-weight: bold;
 }
-
+.sec02 {
+  min-height: 600px;
+}
 .sec02 .inner {
   color: #fff;
   max-width: 960px;
@@ -269,7 +271,7 @@ header .inner .movie__search button {
 
 .sec02 .inner .iframe {
   width: 50%;
-  height: 38vh;
+  height: 37.5vh;
   position: relative;
 }
 
@@ -293,32 +295,35 @@ header .inner .movie__search button {
   padding-right: 20px;
 }
 
-.sec02 .inner .detail li.movie__name {
+.sec02 .inner .detail .movie__name {
   font-size: 1.6rem;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
-.sec02 .inner .detail li.open__date {
+.sec02 .inner .detail .open__date {
   font-weight: bold;
   font-size: 1.3rem;
 }
-
-.sec02 .inner .detail .ranking {
-  margin-top: 20px;
-}
-.sec02 .inner .detail .counting {
+.sec02 .inner .detail > * {
   margin: 5px 0;
+}
+.sec02 .inner .detail .ranking {
+  margin-top: 15px;
 }
 .sec02 .inner .detail .etc span {
   margin-right: 20px;
   position: relative;
+}
+.sec02 .inner .detail .text__inner .company {
+  padding-left: 62px;
+  text-indent: -62px;
 }
 .sec02 .inner .detail .text__inner .actor__name {
   padding-left: 47px;
   text-indent: -47px;
 }
 
-.sec02 .inner .detail .etc.line span:nth-child(-n + 3)::after {
+.sec02 .inner .detail .etc.line span:nth-child(-n + 2)::after {
   position: absolute;
   content: "";
   width: 1px;
@@ -328,7 +333,7 @@ header .inner .movie__search button {
   right: -14px;
 }
 .sec02 .inner .detail .text__inner {
-  margin-top: 25px;
+  margin-top: 15px;
 }
 .sec02 .inner .detail .text__inner ul {
   font-weight: bold;

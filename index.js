@@ -98,7 +98,7 @@ const openingDateLi = sec02.querySelector(".open__date");
 const rankingLi = sec02.querySelector(".ranking");
 const directorNmLi = sec02.querySelector(".director__name");
 const actorNmLi = sec02.querySelector(".actor__name");
-const genreSpan = sec02.querySelector(".genre");
+const genreLi = sec02.querySelector(".genre");
 const nationSpan = sec02.querySelector(".nation");
 const ratingSpan = sec02.querySelector(".rating");
 const runtimeSpan = sec02.querySelector(".runtime");
@@ -130,35 +130,37 @@ function detailTagFnc(movieLength) {
     "$1. $2. $3"
   );
   animateValue(countTag, 0, movieDetailArray[movieLength].movieAudiAcc, 1500);
-  companyLi.innerText = `제작사 : ${movieDetailArray[movieLength].company}`;
+  companyLi.innerText = `제작사 : ${movieDetailArray[
+    movieLength
+  ].company.replace(/,/g, ", ")}`;
   rankingLi.innerText = `박스오피스 ${movieLength + 1}위 `;
   directorNmLi.innerText = `감독 : ${movieDetailArray[movieLength].directorNm}`;
   actorNmLi.innerText = `출연 : `;
 
-  genreSpan.innerText = movieDetailArray[movieLength].genre.replace(/,/g, ", ");
-  nationSpan.innerText = movieDetailArray[movieLength].nation;
+  genreLi.innerText = movieDetailArray[movieLength].genre.replace(/,/g, ", ");
+  nationSpan.innerText = movieDetailArray[movieLength].nation.replace(
+    /,/g,
+    ", "
+  );
   plotP.innerText = movieDetailArray[movieLength].plots;
   switch (movieDetailArray[movieLength].rating) {
     case "18세관람가(청소년관람불가)":
-      ratingSpan.innerText = "18세↑";
+      ratingSpan.innerText = "18세 이상";
       break;
     case "15세관람가":
-      ratingSpan.innerText = "15세↑";
+      ratingSpan.innerText = "15세 이상";
       break;
     case "12세관람가":
-      ratingSpan.innerText = "12세↑";
-      break;
-    case "전체관람가":
-      ratingSpan.innerText = "전체";
+      ratingSpan.innerText = "12세 이상";
       break;
     default:
-      ratingSpan.innerText = "정보없음";
+      ratingSpan.innerText = movieDetailArray[movieLength].rating;
   }
   runtimeSpan.innerText = movieDetailArray[movieLength].runtime + "분";
   for (let j = 0; j < movieDetailArray[movieLength].actor.length; j++) {
-    if (movieDetailArray[movieLength].actor.length >= 10) {
+    if (movieDetailArray[movieLength].actor.length >= 5) {
       // 배우 최대 10명만 출력
-      if (j <= 9) {
+      if (j <= 5) {
         actorTextnode += `${movieDetailArray[movieLength].actor[j].actorNm}, `;
       }
     } else {

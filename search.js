@@ -202,9 +202,9 @@ function kmdbFn(
   modalActorNmLi.innerText = "";
   if (actor.length > 1) {
     for (let i = 0; i < actor.length; i++) {
-      if (actor.length >= 10) {
+      if (actor.length >= 5) {
         // 배우 최대 10명만 출력
-        if (i <= 9) {
+        if (i <= 5) {
           actorTextnode += `${actor[i].actorNm}, `;
         }
       } else {

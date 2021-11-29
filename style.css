@@ -127,7 +127,7 @@ header .inner .logo span {
 }
 .sec00 input ~ label::after {
   position: absolute;
-  top: 4px;
+  top: 3px;
   right: -36px;
   content: "닫기";
   display: block;
@@ -135,7 +135,7 @@ header .inner .logo span {
 }
 .sec00 input:checked ~ label::after {
   position: absolute;
-  top: 4px;
+  top: 3px;
   right: -36px;
   content: "열기";
   display: block;

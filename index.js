@@ -106,38 +106,41 @@ const countTag = sec02.querySelector(".counting");
 const companyLi = sec02.querySelector(".company");
 const plotP = sec02.querySelector(".plot");
 
-function scrollCount(obj, start, end, duration){
+function scrollCount(obj, start, end, duration) {
   let countScrollState = true;
-  let windowY =  document.documentElement.clientHeight - countTag.getBoundingClientRect().top;
+  let windowY =
+    document.documentElement.clientHeight -
+    countTag.getBoundingClientRect().top;
   animateValue(obj, start, end, duration);
   countScrollState = false;
-    document.addEventListener("scroll", function() {
-      windowY = document.documentElement.clientHeight - countTag.getBoundingClientRect().top;
-      if(windowY > 0 && countScrollState){
-        animateValue(obj, start, end, duration);
-        countScrollState = false;
-      }else if(windowY < 0){
-        countScrollState = true;
-      }
-    });
+  document.addEventListener("scroll", function () {
+    windowY =
+      document.documentElement.clientHeight -
+      countTag.getBoundingClientRect().top;
+    if (windowY > 0 && countScrollState) {
+      animateValue(obj, start, end, duration);
+      countScrollState = false;
+    } else if (windowY < 0) {
+      countScrollState = true;
+    }
+  });
 }
 
 function animateValue(obj, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const comma = Math.floor(progress * (end - start) + start);
-      obj.innerText = `누적 관객수 ${comma
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명`;
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const comma = Math.floor(progress * (end - start) + start);
+    obj.innerText = `누적 관객수 ${comma
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명`;
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
 }
-
 
 function detailTagFnc(movieLength) {
   let actorTextnode = "배우 : ";
@@ -239,6 +242,8 @@ function posterClick() {
 }
 
 function loadingRemoveTag() {
+  const loading = document.querySelector(".loading__group");
+  loading.parentNode.removeChild(loading);
   const sec01 = document.querySelector(".sec01");
   sec01.style.display = "block";
   const etc = document.querySelector(".sec02 .etc");

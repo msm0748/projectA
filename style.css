@@ -333,6 +333,24 @@ header .inner .logo span {
   position: relative;
   display: none;
 }
+.loading__group {
+  text-align: center;
+  color: white;
+  margin: 150px 0;
+}
+.loading__group .loading {
+  width: 60px;
+  height: 60px;
+  background-image: url("loading.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 20px auto;
+}
+.sec01 .inner .boxoffice__ranking {
+  text-align: right;
+  color: gray;
+  margin-top: 10px;
+}
 
 .sec01 .swiper {
   width: 100%;

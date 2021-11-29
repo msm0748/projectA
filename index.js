@@ -43,8 +43,8 @@ async function moviePosterFnc(movieName, movieOpenDate) {
       openDay: `&releaseDts=${movieOpenDate[i]}`,
       sort: `&sort=prodYear,1`,
     };
-    if (movieName[i].indexOf("!") !== -1)
-      moviePosterValue.title = `&query=${movieName[i].replace(/!/g, "")}`;
+    // if (movieName[i].indexOf("!") !== -1)
+    //   moviePosterValue.title = `&query=${movieName[i].replace(/!/g, "")}`;
     // kmdb에서 제목에 ! 있으면 제대로 찾질 못함
     let url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.openDay}${moviePosterValue.sort}`;
     let response = await fetch(url);
@@ -106,21 +106,38 @@ const countTag = sec02.querySelector(".counting");
 const companyLi = sec02.querySelector(".company");
 const plotP = sec02.querySelector(".plot");
 
-function animateValue(obj, start, end, duration) {
-  let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    const comma = Math.floor(progress * (end - start) + start);
-    obj.innerText = `누적 관객수 ${comma
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명`;
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  };
-  window.requestAnimationFrame(step);
+function scrollCount(obj, start, end, duration){
+  let countScrollState = true;
+  let windowY =  document.documentElement.clientHeight - countTag.getBoundingClientRect().top;
+  animateValue(obj, start, end, duration);
+  countScrollState = false;
+    document.addEventListener("scroll", function() {
+      windowY = document.documentElement.clientHeight - countTag.getBoundingClientRect().top;
+      if(windowY > 0 && countScrollState){
+        animateValue(obj, start, end, duration);
+        countScrollState = false;
+      }else if(windowY < 0){
+        countScrollState = true;
+      }
+    });
 }
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const comma = Math.floor(progress * (end - start) + start);
+      obj.innerText = `누적 관객수 ${comma
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}명`;
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+}
+
 
 function detailTagFnc(movieLength) {
   let actorTextnode = "배우 : ";
@@ -129,7 +146,7 @@ function detailTagFnc(movieLength) {
     /(\d{4})(\d{2})(\d{2})/g,
     "$1. $2. $3"
   );
-  animateValue(countTag, 0, movieDetailArray[movieLength].movieAudiAcc, 1500);
+  scrollCount(countTag, 0, movieDetailArray[movieLength].movieAudiAcc, 1500);
   companyLi.innerText = `제작사 : ${movieDetailArray[
     movieLength
   ].company.replace(/,/g, ", ")}`;
@@ -158,9 +175,9 @@ function detailTagFnc(movieLength) {
   }
   runtimeSpan.innerText = movieDetailArray[movieLength].runtime + "분";
   for (let j = 0; j < movieDetailArray[movieLength].actor.length; j++) {
-    if (movieDetailArray[movieLength].actor.length >= 5) {
+    if (movieDetailArray[movieLength].actor.length >= 4) {
       // 배우 최대 10명만 출력
-      if (j <= 5) {
+      if (j <= 4) {
         actorTextnode += `${movieDetailArray[movieLength].actor[j].actorNm}, `;
       }
     } else {
@@ -217,7 +234,7 @@ function posterClick() {
   detailBtn.addEventListener("click", function () {
     iframe.src = `https://play-tv.kakao.com/embed/player/cliplink/${movieDetailArray[clickIndex].iframeSrc}?mute=1&fs=0&loop=1&modestbranding=1`;
     detailTagFnc(clickIndex);
-    animateValue(countTag, 0, movieDetailArray[clickIndex].movieAudiAcc, 1500);
+    scrollCount(countTag, 0, movieDetailArray[clickIndex].movieAudiAcc, 1500);
   });
 }
 
@@ -227,7 +244,7 @@ function loadingRemoveTag() {
   const etc = document.querySelector(".sec02 .etc");
   etc.classList.add("line");
 }
-async function testCode() {
+async function apiStart() {
   const boxOfficeRankingResult = await boxofficeFnc();
   const kmdbPosterResult = moviePosterFnc(
     boxOfficeRankingResult[0],
@@ -244,4 +261,4 @@ async function testCode() {
   posterClick();
   // countScorll();
 }
-testCode();
+apiStart();

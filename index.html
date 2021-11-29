@@ -15,48 +15,48 @@
     <header>
         <div class="inner">
             <h1 class="logo"><span>영화</span></h1>
-            <div class="movie__search">
-                <form id="search__form">
-                    <fieldset>
-                        <legend>검색</legend>
-                        <input id="search__value" type="text" name="search" placeholder="영화명 검색">
-                        <button type="submit" class="search__btn">검색</button>
-                    </fieldset>
-                </form>
-            </div>
         </div>
     </header>
-    <div class="search__contents">
+    <div class="movie__search">
+        <form id="search__form">
+                <input id="search__value" type="text" name="search" placeholder="영화명 검색">
+                <button type="submit" class="search__btn"><span class="search__icon"></span></button>
+        </form>
+    </div>
+    <div class="sec00">
         <input type="checkbox" id="arrow">
-        <div class="inner">
-            <ul class="search__detail"></ul>
-        </div>
-        <label for="arrow"><div class="content__arrow"></div></label>
-        <div class="modal">
-            <div class="modal_body">
-                <div class="poster"><img src="" alt=""></div>
-                <ul class="detail">
-                    <li class="movie__name"><strong></strong></li>
-                    <li class="open__date"></li>
-                    <li class="etc">
-                        <span class="genre"></span>
-                        <span class="nation"></span>
-                        <span class="rating"></span>
-                        <span class="runtime"></span>
-                    </li>
-                    <li class="text__inner">
-                        <ul>
+        <div class="search__contents">
+            <div class="inner">
+                <ul class="search__detail"></ul>
+            </div>
+            <div class="modal">
+                <div class="modal_body">
+                    <div class="contents">
+                        <div class="poster"><img src="" alt=""></div>
+                        <ul class="detail">
+                            <li class="movie__name"><strong></strong></li>
+                            <li class="open__date"></li>
+                            <li class="nation"></li>
+                            <li class="etc">
+                                <ul>
+                                    <li>개요 : </li>
+                                    <li class="genre"></li>
+                                    <li class="rating"></li>
+                                    <li class="runtime"></li>
+                                </ul>
+                            </li>
                             <li class="company"></li>
                             <li class="director__name"></li>
                             <li class="actor__name"></li>
-                            <li class="plot"></li>
                         </ul>
-                    </li>
-                </ul>
-
+                        <p class="plot"></p>
+                    </div>
+                </div>
             </div>
         </div>
+        <label for="arrow"><span class="content__arrow"></span></label>
     </div>
+
     <div class="sec01">
         <div class="inner">
             <div class="swiper swiper-container">

@@ -3,23 +3,27 @@ const searchContents = document.querySelector(".search__contents");
 let searchValue;
 let movieNames = new Array();
 let openDate = new Array();
-let movieListLiIndex;
-// function formSubmit(){
 
 const ani = document.querySelector(".search__contents .inner");
+const movieList = document.querySelector(".search__detail");
 
-const contentArrow = searchContents.querySelector(".content__arrow");
+const contentArrow = document.querySelector(".sec00 label");
 contentArrow.addEventListener("click", function () {
   ani.style.animationName = "none";
 });
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   searchContents.style.display = "block";
+  contentArrow.style.display = "flex";
   searchValue = document.getElementById("search__value").value;
   searchValue = encodeURIComponent(searchValue);
-  movieSearchFnc(searchValue);
+  movieSearchFnc(searchValue).catch((err) => {
+    const errLi = document.createElement("li");
+    errLi.classList.add("search__err");
+    errLi.innerText = "검색 결과가 없습니다.";
+    movieList.appendChild(errLi);
+  });
 });
-const movieList = document.querySelector(".search__detail");
 
 let searchMovieArray = new Array();
 
@@ -34,7 +38,6 @@ async function movieSearchFnc(movieName) {
   let url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.sort}`;
   let response = await fetch(url);
   let data = await response.json();
-  console.log(data);
   while (movieList.hasChildNodes()) {
     movieList.removeChild(movieList.firstChild);
   } //이미 movieList가 있는경우 초기화(쌓이는거 방지)
@@ -49,9 +52,9 @@ async function movieSearchFnc(movieName) {
     const runtime = dataResult[i].runtime;
     const genre = dataResult[i].genre.replace(/,/g, ", ");
     const rating = dataResult[i].rating;
-    const nation = dataResult[i].nation;
+    const nation = dataResult[i].nation.replace(/,/g, ", ");
     const plots = dataResult[i].plots.plot[0].plotText;
-    const company = dataResult[i].company;
+    const company = dataResult[i].company.replace(/,/g, ", ");
     let title = dataResult[i].title;
     title = title.replace(/\!HS/g, "");
     title = title.replace(/\!HE/g, "");
@@ -74,6 +77,7 @@ async function movieSearchFnc(movieName) {
       const posterTag = document.createElement("img");
       const titleTag = document.createElement("p");
       const titleStrongTag = document.createElement("strong");
+      titleStrongTag.classList.add("detail__link");
       const plotTag = document.createElement("p");
       const ratingTag = document.createElement("p");
       const genreTag = document.createElement("p");
@@ -115,11 +119,10 @@ async function movieSearchFnc(movieName) {
     }
   }
   movieClick();
-  console.log(searchMovieArray);
 }
 
 function movieClick() {
-  movieListLiIndex = movieList.querySelectorAll("li");
+  let movieListLiIndex = movieList.querySelectorAll("li .detail__link");
   if (movieListLiIndex) {
     for (let i = 0; i < movieListLiIndex.length; i++) {
       movieListLiIndex[i].addEventListener("click", function () {
@@ -174,12 +177,12 @@ const modalMovieNameLi = modal.querySelector(".movie__name strong");
 const modalOpeningDateLi = modal.querySelector(".open__date");
 const modalDirectorNmLi = modal.querySelector(".director__name");
 const modalActorNmLi = modal.querySelector(".actor__name");
-const modalGenreSpan = modal.querySelector(".genre");
-const modalNationSpan = modal.querySelector(".nation");
-const modalRatingSpan = modal.querySelector(".rating");
-const modalRuntimeSpan = modal.querySelector(".runtime");
+const modalGenreLi = modal.querySelector(".genre");
+const modalNationLi = modal.querySelector(".nation");
+const modalRatingLi = modal.querySelector(".rating");
+const modalRuntimeLi = modal.querySelector(".runtime");
 const modalCompanyLi = modal.querySelector(".company");
-const modalPlotLi = modal.querySelector(".plot");
+const modalPlotP = modal.querySelector(".plot");
 
 function kmdbFn(
   title,
@@ -197,14 +200,17 @@ function kmdbFn(
   let actorTextnode = "배우 : ";
   modalMovieNameLi.innerText = title;
   modalPosterImg.src = poster;
-  modalOpeningDateLi.innerText = openingDate;
-  modalDirectorNmLi.innerText = directorNm;
+  modalOpeningDateLi.innerText = `개봉 : ${openingDate.replace(
+    /(\d{4})(\d{2})(\d{2})/g,
+    "$1. $2. $3"
+  )}`;
+  modalDirectorNmLi.innerText = `감독 : ${directorNm}`;
   modalActorNmLi.innerText = "";
   if (actor.length > 1) {
     for (let i = 0; i < actor.length; i++) {
-      if (actor.length >= 5) {
-        // 배우 최대 10명만 출력
-        if (i <= 5) {
+      if (actor.length >= 4) {
+        // 배우 최대 5명만 출력
+        if (i <= 4) {
           actorTextnode += `${actor[i].actorNm}, `;
         }
       } else {
@@ -213,12 +219,11 @@ function kmdbFn(
     }
   }
   actorTextnode = actorTextnode.slice(0, -2);
-  console.log(actorTextnode);
   modalActorNmLi.innerText = actorTextnode;
-  modalRuntimeSpan.innerText = runtime;
-  modalGenreSpan.innerText = genre;
-  modalRatingSpan.innerText = rating;
-  modalNationSpan.innerText = nation;
-  modalPlotLi.innerText = plots;
-  modalCompanyLi.innerText = company;
+  modalRuntimeLi.innerText = `${runtime}분`;
+  modalGenreLi.innerText = genre;
+  modalRatingLi.innerText = rating;
+  modalNationLi.innerText = `국가 : ${nation}`;
+  modalCompanyLi.innerText = `제작사 : ${company}`;
+  modalPlotP.innerText = `${plots}`;
 }

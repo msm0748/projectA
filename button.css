@@ -3,9 +3,9 @@
 .detail_btn {
   padding: 0.5em 1em;
   text-decoration: none;
-  color: #2194e0;
-  border: 2px solid #2194e0;
-  font-size: 24px;
+  color: #03c75a;
+  border: 2px solid #03c75a;
+  font-size: 16px;
   display: inline-block;
   border-radius: 0.3em;
   transition: all 0.2s ease-in-out;
@@ -26,9 +26,9 @@
   transition: none;
 }
 .detail_btn:hover {
-  background-color: #2194e0;
+  background-color: #03c75a;
   color: #fff;
-  border-bottom: 4px solid darken(#2194e0, 10%);
+  border-bottom: 4px solid darken(#03c75a, 10%);
 }
 .detail_btn:hover::before {
   transform: skewX(-45deg) translateX(13.5em);

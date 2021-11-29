@@ -48,26 +48,30 @@ header .inner .logo span {
   line-height: 65px;
   color: white;
 }
-header .inner .movie__search {
-  width: 450px;
+.movie__search {
+  width: 500px;
   height: 50px;
   border: #03c75a 2px solid;
   overflow: hidden;
   border-radius: 2px;
   position: relative;
+  margin: 20px auto;
 }
-header .inner .movie__search input {
+.movie__search input {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 390px;
+  width: 440px;
   border: none;
   padding: 10px;
   outline: none;
   font-size: 18px;
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
 }
-header .inner .movie__search button {
+.movie__search button {
   position: absolute;
   top: 0;
   right: 0;
@@ -80,26 +84,67 @@ header .inner .movie__search button {
   font-size: 16px;
   cursor: pointer;
 }
+.movie__search button span {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-position: -420px -208px;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  background-image: url("https://s.pstatic.net/static/www/img/uit/2021/sp_main_57f073.png");
+  -webkit-background-size: 444px 439px;
+  background-size: 444px 439px;
+  background-repeat: no-repeat;
+}
 .search__contents {
   display: none;
+  box-shadow: 5px 10px 15px 1px black inset;
+  background-color: #292a2d;
+  transition: padding 1s;
+  padding: 30px 0;
 }
-
-.search__contents label .content__arrow {
+.sec00 label {
+  display: none;
+  max-width: 1200px;
   margin: 0 auto;
-  width: 50px;
-  height: 50px;
+  justify-content: flex-end;
+  position: relative;
+}
+.sec00 label .content__arrow {
+  width: 30px;
+  height: 30px;
   background-image: url("pngwing.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: pointer;
 }
-.search__contents input {
+.sec00 input {
   display: none;
 }
-.search__contents input:checked ~ label .content__arrow {
+.sec00 input:checked ~ .search__contents {
+  padding: 0;
+}
+.sec00 input ~ label::after {
+  position: absolute;
+  top: 4px;
+  right: -36px;
+  content: "닫기";
+  display: block;
+  color: white;
+}
+.sec00 input:checked ~ label::after {
+  position: absolute;
+  top: 4px;
+  right: -36px;
+  content: "열기";
+  display: block;
+  color: white;
+}
+.sec00 input:checked ~ label .content__arrow {
   transform: rotate(180deg);
 }
-.search__contents input:checked ~ .inner {
+.sec00 input:checked ~ .search__contents .inner {
   height: 0;
 }
 .search__contents .inner {
@@ -107,10 +152,9 @@ header .inner .movie__search button {
   animation-name: sample;
   animation-duration: 2s;
   animation-fill-mode: forwards;
-  height: 350px;
+  height: 294px;
   overflow-y: auto;
-  background-color: #292a2d;
-  box-shadow: 5px 10px 30px 1px black inset;
+  background-color: transparent;
 }
 .search__contents .inner::-webkit-scrollbar {
   width: 10px;
@@ -130,12 +174,20 @@ header .inner .movie__search button {
     height: 0;
   }
   to {
-    height: 350px;
+    height: 294px;
   }
 }
 .search__contents .inner .search__detail {
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
+}
+.search__contents .inner .search__detail .search__err {
+  width: auto;
+  margin: 0 auto;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
 }
 .search__contents .inner .search__detail li {
   padding: 20px 10px;
@@ -164,6 +216,9 @@ header .inner .movie__search button {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+.search__contents .inner .search__detail li .movieArt p:first-child strong {
+  cursor: pointer;
+}
 .search__contents .modal {
   position: fixed;
   top: 0;
@@ -171,8 +226,9 @@ header .inner .movie__search button {
   width: 100%;
   height: 100%;
   display: none;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
+  backdrop-filter: blur(2px);
 }
 .search__contents .modal.show {
   display: block;
@@ -185,11 +241,62 @@ header .inner .movie__search button {
   width: 1000px;
   height: 680px;
   padding: 40px;
-  text-align: center;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   transform: translateX(-50%) translateY(-50%);
+}
+.search__contents .modal .modal_body .contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+.search__contents .modal .modal_body .contents .detail {
+  padding-left: 30px;
+  min-width: 700px;
+}
+.search__contents .modal .modal_body .contents .detail > * {
+  margin-bottom: 10px;
+}
+.search__contents .modal .modal_body .contents .detail .etc ul li {
+  display: inline-block;
+  position: relative;
+}
+.search__contents
+  .modal
+  .modal_body
+  .contents
+  .detail
+  .etc
+  ul
+  li:nth-child(n + 2) {
+  margin-right: 10px;
+}
+.search__contents
+  .modal
+  .modal_body
+  .contents
+  .detail
+  .etc
+  ul
+  li:nth-child(n + 3)::before {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 18px;
+  background-color: gray;
+  top: 3px;
+  left: -8px;
+}
+
+.search__contents .modal .modal_body .contents .detail .movie__name {
+  font-size: 1.5rem;
+}
+.search__contents .modal .modal_body .contents .poster img {
+  width: 200px;
+  height: 250px;
+}
+.search__contents .modal .modal_body .contents .plot {
+  margin: 30px 0;
 }
 .sec01 {
   margin: 100px 0;
@@ -203,8 +310,6 @@ header .inner .movie__search button {
 }
 
 .sec01 .swiper .swiper-slide {
-  /* background-position: center;
-  background-size: cover; */
   width: 300px;
   height: 400px;
   -webkit-box-reflect: below 1px
@@ -224,9 +329,9 @@ header .inner .movie__search button {
   text-align: center;
   display: block;
   position: absolute;
-  top: 50%;
+  bottom: -60px;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%);
   cursor: pointer;
 }
 
@@ -271,7 +376,7 @@ header .inner .movie__search button {
 
 .sec02 .inner .iframe {
   width: 50%;
-  height: 37.5vh;
+  height: auto;
   position: relative;
 }
 
@@ -311,7 +416,7 @@ header .inner .movie__search button {
   margin-top: 15px;
 }
 .sec02 .inner .detail .etc span {
-  margin-right: 20px;
+  margin-right: 10px;
   position: relative;
 }
 .sec02 .inner .detail .text__inner .company {
@@ -327,17 +432,17 @@ header .inner .movie__search button {
   position: absolute;
   content: "";
   width: 1px;
-  height: 20px;
+  height: 18px;
   background-color: gray;
-  top: 3px;
-  right: -14px;
+  top: 4px;
+  right: -9px;
 }
 .sec02 .inner .detail .text__inner {
   margin-top: 15px;
 }
 .sec02 .inner .detail .text__inner ul {
   font-weight: bold;
-  color: #464646;
+  color: #c9c9c9;
 }
 .sec02 .inner .plot {
   margin-top: 25px;

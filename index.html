@@ -6,9 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NAVER 영화</title>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> -->
     <link rel="stylesheet" href="swiper.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="swiper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.1/dist/polyfill.min.js"></script>
+    <!-- ie promise 사용 가능 srcript -->
+    <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0/dist/fetch.umd.min.js"></script>
+    <!-- ie fetch 사용 가능 srcript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <!-- ie async 사용 가능 srcript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+    <!-- ie async 사용 가능 srcript -->
+
 </head>
 
 <body>
@@ -19,7 +28,7 @@
     </header>
     <div class="movie__search">
       <span>출처 : 한국영화데이터베이스</span>
-        <form id="search__form" class="search__form">
+        <form id="search__form" class="search__form"  autocomplete="off">
                 <input id="search__value" type="text" name="search" placeholder="영화명 검색">
                 <button type="submit" class="search__btn"><span class="search__icon"></span></button>
         </form>
@@ -56,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <label for="arrow"><span class="content__arrow"></span></label>
+        <label for="arrow"><div class="content__arrow"></div></label>
     </div>
     <div class="loading__group">
         <div class="loading"></div>
@@ -140,19 +149,24 @@
             <p class="plot"></p>
         </div>
     </div>
-    <script src="swiper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.1/dist/polyfill.min.js"></script>
-    <!-- ie promise 사용 가능 srcript -->
-    <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0/dist/fetch.umd.min.js"></script>
-    <!-- ie fetch 사용 가능 srcript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
-    <!-- ie async 사용 가능 srcript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
-    <!-- ie async 사용 가능 srcript -->
-    <!-- <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script> -->
+    <footer>
+        <div class="inner">
+            <div class="corp_area">
+                <ul>
+                    <li><a href="#">회사소개</a></li>
+                    <li><a href="#">인재채용</a></li>
+                    <li><a href="#">제휴제안</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">네이버 정책</a></li>
+                    <li><a href="#">고객센터</a></li>
+                </ul>
+                <address><a href="#">ⓒ NAVER Corp.</a></address>
+            </div>
+        </div>
+    </footer>
     <script type="text/babel" src="index.js"></script>
     <script type="text/babel" src="search.js"></script>
-    <!-- <script type="text/babel" src="scroll.js"></script> -->
 </body>
 
 </html>

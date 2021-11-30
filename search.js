@@ -11,14 +11,17 @@ const contentArrow = document.querySelector(".sec00 label");
 contentArrow.addEventListener("click", function () {
   ani.style.animationName = "none";
 });
+
+const errLi = document.createElement("li");
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   searchContents.style.display = "block";
-  contentArrow.style.display = "flex";
+  contentArrow.style.display = "block";
   searchValue = document.getElementById("search__value").value;
   searchValue = encodeURIComponent(searchValue);
   movieSearchFnc(searchValue).catch((err) => {
-    const errLi = document.createElement("li");
+    // const errLi = document.createElement("li");
     errLi.classList.add("search__err");
     errLi.innerText = "검색 결과가 없습니다.";
     movieList.appendChild(errLi);
@@ -26,7 +29,7 @@ form.addEventListener("submit", function (e) {
 });
 
 let searchMovieArray = new Array();
-
+let errTag;
 async function movieSearchFnc(movieName) {
   searchMovieArray = [];
   let moviePosterValue = {
@@ -73,35 +76,6 @@ async function movieSearchFnc(movieName) {
       plots &&
       company
     ) {
-      const movieListLi = document.createElement("li");
-      const posterTag = document.createElement("img");
-      const titleTag = document.createElement("p");
-      const titleStrongTag = document.createElement("strong");
-      titleStrongTag.classList.add("detail__link");
-      const plotTag = document.createElement("p");
-      const ratingTag = document.createElement("p");
-      const genreTag = document.createElement("p");
-      const openingDateTag = document.createElement("p");
-      const movieArt = document.createElement("div");
-      movieArt.classList.add("movieArt");
-      const moviePoster = document.createElement("div");
-      posterTag.src = mainPoster;
-      titleStrongTag.innerText = title;
-      openingDateTag.innerText = openingDate.slice(0, 4);
-      genreTag.innerText = genre;
-      ratingTag.innerText = rating;
-      plotTag.innerText = plots;
-      titleTag.appendChild(titleStrongTag);
-      moviePoster.appendChild(posterTag);
-      movieListLi.appendChild(moviePoster);
-      movieArt.appendChild(titleTag);
-      movieArt.appendChild(openingDateTag);
-      movieArt.appendChild(genreTag);
-      movieArt.appendChild(ratingTag);
-      movieArt.appendChild(plotTag);
-      movieListLi.appendChild(movieArt);
-      movieList.appendChild(movieListLi);
-
       searchMovieObj = {
         title: title,
         poster: mainPoster,
@@ -118,7 +92,46 @@ async function movieSearchFnc(movieName) {
       searchMovieArray.push(searchMovieObj);
     }
   }
+  createMovieTag();
   movieClick();
+}
+function createMovieTag(){
+  if(searchMovieArray.length > 0){
+    for(let i = 0; i < searchMovieArray.length; i++){
+      const movieListLi = document.createElement("li");
+      const posterTag = document.createElement("img");
+      const titleTag = document.createElement("p");
+      const titleStrongTag = document.createElement("strong");
+      titleStrongTag.classList.add("detail__link");
+      const plotTag = document.createElement("p");
+      const ratingTag = document.createElement("p");
+      const genreTag = document.createElement("p");
+      const openingDateTag = document.createElement("p");
+      const movieArt = document.createElement("div");
+      movieArt.classList.add("movieArt");
+      const moviePoster = document.createElement("div");
+      posterTag.src = searchMovieArray[i].poster;
+      titleStrongTag.innerText = searchMovieArray[i].title;
+      openingDateTag.innerText = searchMovieArray[i].openingDate.slice(0, 4);
+      genreTag.innerText = searchMovieArray[i].genre;
+      ratingTag.innerText = searchMovieArray[i].rating;
+      plotTag.innerText = searchMovieArray[i].plots;
+      titleTag.appendChild(titleStrongTag);
+      moviePoster.appendChild(posterTag);
+      movieListLi.appendChild(moviePoster);
+      movieArt.appendChild(titleTag);
+      movieArt.appendChild(openingDateTag);
+      movieArt.appendChild(genreTag);
+      movieArt.appendChild(ratingTag);
+      movieArt.appendChild(plotTag);
+      movieListLi.appendChild(movieArt);
+      movieList.appendChild(movieListLi);
+    }
+  }else{
+    errLi.classList.add("search__err");
+    errLi.innerText = "검색 결과가 없습니다.";
+    movieList.appendChild(errLi);
+  }
 }
 
 function movieClick() {

@@ -49,7 +49,6 @@ async function moviePosterFnc(movieName, movieOpenDate) {
     let url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.openDay}${moviePosterValue.sort}`;
     let response = await fetch(url);
     let data = await response.json();
-    // console.log(data);
     const dataResult = data.Data[0].Result[0];
     let posters = dataResult.posters;
     let mainPoster = posters.split("|")[0]; //여러개 이미지를 |를 기준으로 잘라서 첫번째 배열을 가져오기
@@ -267,3 +266,12 @@ async function apiStart() {
   // countScorll();
 }
 apiStart();
+
+
+
+var agent = navigator.userAgent.toLowerCase();
+
+if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) || (agent.indexOf("firefox") != -1)) {
+    var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
+    document.styleSheets[0].insertRule(".swiper-slide::after{background-image: " + gradient + ", url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}", 0);
+}

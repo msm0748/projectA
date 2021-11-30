@@ -128,24 +128,26 @@ header .inner .logo span {
 }
 .search__contents {
   display: none;
-  box-shadow: 5px 10px 15px 1px black inset;
+  box-shadow: 10px 15px 15px 4px black inset;
   background-color: #292a2d;
   transition: padding 1s;
-  padding: 30px 0;
+  padding: 25px 0;
 }
+.sec00{
+  position: relative;
+}
+
 .sec00 label {
   display: none;
-  max-width: 1200px;
-  margin: 0 auto;
-  justify-content: flex-end;
-  position: relative;
+  width: auto;
+  right: 100px;
+  bottom:-30px;
+  position: absolute;
 }
 .sec00 label .content__arrow {
   width: 30px;
   height: 30px;
   background-image: url("pngwing.png");
-  background-position: center;
-  background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
 }
@@ -197,6 +199,7 @@ header .inner .logo span {
 .search__contents .inner::-webkit-scrollbar-track {
   background: black;
   border: 1px solid black;
+  border-radius: 5px;
 }
 @keyframes sample {
   /* 일회용 */
@@ -329,7 +332,7 @@ header .inner .logo span {
   margin: 30px 0;
 }
 .sec01 {
-  margin: 100px 0 50px 0;
+  margin: 150px 0 50px 0;
   position: relative;
   display: none;
 }
@@ -496,4 +499,41 @@ header .inner .logo span {
   margin-top: 25px;
   line-height: 25px;
   word-break: keep-all;
+}
+footer{
+  background-color: #292a2d;
+  width: 100%;
+}
+footer .inner .corp_area{
+  padding: 30px 0;
+}
+footer .inner .corp_area ul{
+  float: left;
+}
+footer .inner .corp_area ul li{
+  float: left;
+  padding-right: 16px;
+  position: relative;
+
+}
+footer .inner .corp_area ul li:nth-child(-n + 6):after{
+  content: "";
+  width: 1px;
+  height: 16px;
+  background-color: gray;
+  top: 4px;
+  right: 8px;
+  position: absolute;
+
+}
+footer .inner .corp_area ul li a{
+  color: gray;
+}
+
+footer .inner .corp_area ul li a:hover{
+  text-decoration: underline;
+}
+footer .inner .corp_area a{
+  color:rgb(228, 228, 228);
+  font-style: normal;
 }

@@ -43,7 +43,7 @@ header .inner .logo::before {
   background-repeat: no-repeat;
   vertical-align: top;
   content: "";
-  background-image: url(https://s.pstatic.net/static/www/img/uit/2021/sp_main_57f073.png);
+  background-image: url("https://s.pstatic.net/static/www/img/uit/2021/sp_main_57f073.png");
   -webkit-background-size: 444px 439px;
   background-size: 444px 439px;
 }
@@ -133,7 +133,7 @@ header .inner .logo span {
   transition: padding 1s;
   padding: 25px 0;
 }
-.sec00{
+.sec00 {
   position: relative;
 }
 
@@ -141,7 +141,7 @@ header .inner .logo span {
   display: none;
   width: auto;
   right: 100px;
-  bottom:-30px;
+  bottom: -30px;
   position: absolute;
 }
 .sec00 label .content__arrow {
@@ -361,6 +361,7 @@ header .inner .logo span {
 }
 
 .sec01 .swiper .swiper-slide {
+  position: relative;
   width: 300px;
   height: 400px;
   -webkit-box-reflect: below 1px
@@ -500,23 +501,22 @@ header .inner .logo span {
   line-height: 25px;
   word-break: keep-all;
 }
-footer{
+footer {
   background-color: #292a2d;
   width: 100%;
 }
-footer .inner .corp_area{
+footer .inner .corp_area {
   padding: 30px 0;
 }
-footer .inner .corp_area ul{
+footer .inner .corp_area ul {
   float: left;
 }
-footer .inner .corp_area ul li{
+footer .inner .corp_area ul li {
   float: left;
   padding-right: 16px;
   position: relative;
-
 }
-footer .inner .corp_area ul li:nth-child(-n + 6):after{
+footer .inner .corp_area ul li:nth-child(-n + 6):after {
   content: "";
   width: 1px;
   height: 16px;
@@ -524,16 +524,30 @@ footer .inner .corp_area ul li:nth-child(-n + 6):after{
   top: 4px;
   right: 8px;
   position: absolute;
-
 }
-footer .inner .corp_area ul li a{
+footer .inner .corp_area ul li a {
   color: gray;
 }
 
-footer .inner .corp_area ul li a:hover{
+footer .inner .corp_area ul li a:hover {
   text-decoration: underline;
 }
-footer .inner .corp_area a{
-  color:rgb(228, 228, 228);
+footer .inner .corp_area a {
+  color: rgb(228, 228, 228);
   font-style: normal;
 }
+/* @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { */
+.swiper-slide:nth-child(n)::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 300px;
+  height: 415px;
+  transform: scaleY(-1);
+  top: 403px;
+  left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* } */

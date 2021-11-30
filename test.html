@@ -22,10 +22,10 @@
             position: relative;
             width: 300px;
             height: 400px;
-            -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, transparent, #0006);
+            /* -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, transparent, #0006); */
         }
 
-        .aa::after {
+        .aa:nth-child(n)::after {
             content: "";
             position: absolute;
             width: 300px;
@@ -43,12 +43,7 @@
             width: 100%;
             height: 100%;
         }
-        .element::before{
-            content: "안녕";
-            color:red;
-            background-color: red;
-            
-        }
+
     </style>
 </head>
 
@@ -56,13 +51,30 @@
     <div class="aa">
         <img src="http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg" alt="">
     </div>
-<div class="aa"></div>
-<div class="element">dd</div>
-    <script>
+<div class="aa">1</div>
+<div class="aa">2</div>
+<div class="aa">3</div>
+<div class="aa">3</div>
+<div class="aa">3</div>
+<div class="aa">3</div>
+<div class="aa">3</div>
+<div class="aa">3</div>
+<div class="aa">3</div>
+
+<script>
 var aa = document.querySelectorAll(".aa");
 console.log(aa);
-var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
-document.styleSheets[0].insertRule(`${aa}::after{background: ${gradient}, url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}`, 0);
+for(let i=0; i < 10; i++){
+    var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
+    document.styleSheets[0].insertRule(`.aa:nth-child(${i})::after{background: ${gradient}, url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}`, 0);
+
+}
+
+// for(var i=0; i < aa.length; i++){
+//     aa[i].classList.add(`a${i}`);
+//     var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
+//     document.styleSheets[0].insertRule(`.a${i}::after{background: ${gradient}, url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}`, 0);
+// }
 // console.log(color);
 // const myElement = document.querySelector('.element')
 // const myPseudoElement = window.getComputedStyle(myElement, ':before')
@@ -71,11 +83,11 @@ document.styleSheets[0].insertRule(`${aa}::after{background: ${gradient}, url('h
 
         // var agent = navigator.userAgent.toLowerCase();
 
-        // if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) || (agent.indexOf("firefox") != -1)) {
-        //     var aa = document.querySelectorAll('.aa');
-        //     var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
-        //     document.styleSheets[0].insertRule(`.aa::after{background: ${gradient}, url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}`, 0);
-        // }
+        if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) || (agent.indexOf("firefox") != -1)) {
+            var aa = document.querySelectorAll('.aa');
+            var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
+            document.styleSheets[0].insertRule(`.aa::after{background: ${gradient}, url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}`, 0);
+        }
 //         window.addEventListener("load", function() {
 //             var aa = document.querySelectorAll('.aa');
 //             var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";

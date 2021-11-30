@@ -199,10 +199,10 @@ function posterTag() {
 }
 
 let clickIndex = 0;
-let swiperAcitve;
+
 let createBtn = document.createElement("button");
 let detailBtn;
-
+let loopActiveIndex;
 function swiper() {
   const swiper = new Swiper(".swiper", {
     effect: "coverflow",
@@ -221,7 +221,7 @@ function swiper() {
       activeIndexChange: function () {
         clickIndex = this.realIndex;
         const swiperLi = document.querySelectorAll(".swiper-slide");
-        let loopActiveIndex = this.activeIndex;
+        let swiperAcitve = this.activeIndex;
         swiperAcitve = swiperLi[loopActiveIndex];
         createBtn.classList.add("detail_btn");
         createBtn.innerText = "상세보기";
@@ -262,16 +262,33 @@ async function apiStart() {
   posterTag();
   swiper();
   iframe.src = `https://play-tv.kakao.com/embed/player/cliplink/${movieDetailArray[0].iframeSrc}?mute=1&fs=0&loop=1&modestbranding=1`;
-  posterClick();
+  // posterClick();
+  ieSafariEffect();
   // countScorll();
 }
 apiStart();
 
+function ieSafariEffect() {
+  var agent = navigator.userAgent.toLowerCase();
 
-
-var agent = navigator.userAgent.toLowerCase();
-
-if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) || (agent.indexOf("firefox") != -1)) {
-    var gradient = "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
-    document.styleSheets[0].insertRule(".swiper-slide::after{background-image: " + gradient + ", url('http://file.koreafilm.or.kr/thm/02/99/17/48/tn_DPK018146.jpg');}", 0);
+  if (
+    (navigator.appName == "Netscape" &&
+      navigator.userAgent.search("Trident") != -1) ||
+    agent.indexOf("msie") != -1 ||
+    agent.indexOf("firefox") != -1
+  ) {
+    for (let i = 0; i < movieDetailArray.length; i++) {
+      console.log(movieDetailArray[i].poster);
+      var gradient =
+        "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
+      document.styleSheets[0].insertRule(
+        `.swiper-slide:nth-child(${
+          i + 1
+        })::after{background-image:${gradient}, url('${
+          movieDetailArray[i].poster
+        }');}`,
+        0
+      );
+    }
+  }
 }

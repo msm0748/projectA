@@ -7,7 +7,7 @@ let openDate = new Array();
 const ani = document.querySelector(".search__contents .inner");
 const movieList = document.querySelector(".search__detail");
 
-const contentArrow = document.querySelector(".sec00 label");
+const contentArrow = document.querySelector(".search__menu label");
 contentArrow.addEventListener("click", function () {
   ani.style.animationName = "none";
 });
@@ -95,15 +95,27 @@ async function movieSearchFnc(movieName) {
   createMovieTag();
   movieClick();
 }
-function createMovieTag(){
-  if(searchMovieArray.length > 0){
-    for(let i = 0; i < searchMovieArray.length; i++){
+function ellipsis() {
+  if (navigator.userAgent.match(/Trident\/7\./)) {
+    var ellipsis = document.querySelectorAll(".ellipsis");
+    for (var i = 0; i < ellipsis.length; i++) {
+      new MultiClamp(ellipsis[i], {
+        ellipsis: "...",
+        clamp: 3,
+      });
+    }
+  }
+}
+function createMovieTag() {
+  if (searchMovieArray.length > 0) {
+    for (let i = 0; i < searchMovieArray.length; i++) {
       const movieListLi = document.createElement("li");
       const posterTag = document.createElement("img");
       const titleTag = document.createElement("p");
       const titleStrongTag = document.createElement("strong");
       titleStrongTag.classList.add("detail__link");
       const plotTag = document.createElement("p");
+      plotTag.classList.add("ellipsis");
       const ratingTag = document.createElement("p");
       const genreTag = document.createElement("p");
       const openingDateTag = document.createElement("p");
@@ -127,7 +139,8 @@ function createMovieTag(){
       movieListLi.appendChild(movieArt);
       movieList.appendChild(movieListLi);
     }
-  }else{
+    ellipsis();
+  } else {
     errLi.classList.add("search__err");
     errLi.innerText = "검색 결과가 없습니다.";
     movieList.appendChild(errLi);

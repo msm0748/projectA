@@ -1,6 +1,7 @@
 if (window.location.protocol === "https:") {
   window.location.href = window.location.href.replace("https:", "http:");
 } //학원페이지가 https 일 경우 kmdb api요청 안되서 http로 변환
+
 let day = new Date();
 
 let year = day.getFullYear();
@@ -195,14 +196,15 @@ function posterTag() {
     posterImg[i].src = movieDetailArray[i].poster;
     posterImg[i].alt = movieDetailArray[i].movieName;
   }
+  iframe.src = `https://play-tv.kakao.com/embed/player/cliplink/${movieDetailArray[0].iframeSrc}?mute=1&fs=0&modestbranding=1`;
   detailTagFnc(0);
 }
-
 let clickIndex = 0;
-
+let swiperAcitve;
 let createBtn = document.createElement("button");
 let detailBtn;
 let loopActiveIndex;
+
 function swiper() {
   const swiper = new Swiper(".swiper", {
     effect: "coverflow",
@@ -217,11 +219,15 @@ function swiper() {
       modifier: 1,
       slideShadows: true,
     },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
     on: {
       activeIndexChange: function () {
         clickIndex = this.realIndex;
         const swiperLi = document.querySelectorAll(".swiper-slide");
-        let swiperAcitve = this.activeIndex;
+        let loopActiveIndex = this.activeIndex;
         swiperAcitve = swiperLi[loopActiveIndex];
         createBtn.classList.add("detail_btn");
         createBtn.innerText = "상세보기";
@@ -234,7 +240,7 @@ function swiper() {
 
 function posterClick() {
   detailBtn.addEventListener("click", function () {
-    iframe.src = `https://play-tv.kakao.com/embed/player/cliplink/${movieDetailArray[clickIndex].iframeSrc}?mute=1&fs=0&loop=1&modestbranding=1`;
+    iframe.src = `https://play-tv.kakao.com/embed/player/cliplink/${movieDetailArray[clickIndex].iframeSrc}?mute=1&fs=0&modestbranding=1`;
     detailTagFnc(clickIndex);
     scrollCount(countTag, 0, movieDetailArray[clickIndex].movieAudiAcc, 1500);
   });
@@ -248,6 +254,46 @@ function loadingRemoveTag() {
   const etc = document.querySelector(".sec02 .etc");
   etc.classList.add("line");
 }
+
+
+function ieFireFoxEffect() {
+  var agent = navigator.userAgent.toLowerCase();
+
+  if (
+    (navigator.appName == "Netscape" &&
+      navigator.userAgent.search("Trident") != -1) ||
+    agent.indexOf("msie") != -1 ||
+    agent.indexOf("firefox") != -1
+  ) {
+    for (let i = 0; i < movieDetailArray.length; i++) {
+      var gradient =
+        "linear-gradient(to top, rgba(30, 31, 33, 0.6) 10%, rgba(30, 31, 33, 0.8) 25%, rgb(30, 31, 33) 30%)";
+      document.styleSheets[0].insertRule(
+        `.poster${i}::after{background-image:${gradient}, url('${movieDetailArray[i].poster}');}`,0);
+    }
+  }
+}
+const iframeDiv = document.querySelector(".iframe");
+function resizeFcn(){
+  // loadSizeFcn();
+  window.addEventListener("resize", function(){
+    // console.log(iframeDiv.clientHeight);
+    if(this.innerWidth < "1024"){
+      iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
+    }else{
+      iframeDiv.style.height = "auto";
+    }
+  });
+}
+resizeFcn();
+if (matchMedia("screen and (max-width: 760px)").matches) {
+  // 1024px 이상에서 사용할 JavaScript
+  iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
+} else if(matchMedia("screen and (max-width: 1024px)").matches){
+  // 1024px 미만에서 사용할 JavaScript
+  iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
+}
+
 async function apiStart() {
   const boxOfficeRankingResult = await boxofficeFnc();
   const kmdbPosterResult = moviePosterFnc(
@@ -261,34 +307,9 @@ async function apiStart() {
   loadingRemoveTag();
   posterTag();
   swiper();
-  iframe.src = `https://play-tv.kakao.com/embed/player/cliplink/${movieDetailArray[0].iframeSrc}?mute=1&fs=0&loop=1&modestbranding=1`;
-  // posterClick();
-  ieSafariEffect();
-  // countScorll();
+  posterClick();
+  ieFireFoxEffect();
 }
 apiStart();
 
-function ieSafariEffect() {
-  var agent = navigator.userAgent.toLowerCase();
 
-  if (
-    (navigator.appName == "Netscape" &&
-      navigator.userAgent.search("Trident") != -1) ||
-    agent.indexOf("msie") != -1 ||
-    agent.indexOf("firefox") != -1
-  ) {
-    for (let i = 0; i < movieDetailArray.length; i++) {
-      console.log(movieDetailArray[i].poster);
-      var gradient =
-        "linear-gradient(to top, rgba(30,31,33, 0.8) 10%, rgba(30,31,33, 1) 40%)";
-      document.styleSheets[0].insertRule(
-        `.swiper-slide:nth-child(${
-          i + 1
-        })::after{background-image:${gradient}, url('${
-          movieDetailArray[i].poster
-        }');}`,
-        0
-      );
-    }
-  }
-}

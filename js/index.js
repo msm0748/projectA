@@ -255,7 +255,6 @@ function loadingRemoveTag() {
   etc.classList.add("line");
 }
 
-
 function ieFireFoxEffect() {
   var agent = navigator.userAgent.toLowerCase();
 
@@ -269,18 +268,20 @@ function ieFireFoxEffect() {
       var gradient =
         "linear-gradient(to top, rgba(30, 31, 33, 0.6) 10%, rgba(30, 31, 33, 0.8) 25%, rgb(30, 31, 33) 30%)";
       document.styleSheets[0].insertRule(
-        `.poster${i}::after{background-image:${gradient}, url('${movieDetailArray[i].poster}');}`,0);
+        `.poster${i}::after{background-image:${gradient}, url('${movieDetailArray[i].poster}');}`,
+        0
+      );
     }
   }
 }
 const iframeDiv = document.querySelector(".iframe");
-function resizeFcn(){
+function resizeFcn() {
   // loadSizeFcn();
-  window.addEventListener("resize", function(){
+  window.addEventListener("resize", function () {
     // console.log(iframeDiv.clientHeight);
-    if(this.innerWidth < "1024"){
+    if (this.innerWidth < "1024") {
       iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
-    }else{
+    } else {
       iframeDiv.style.height = "auto";
     }
   });
@@ -289,7 +290,7 @@ resizeFcn();
 if (matchMedia("screen and (max-width: 760px)").matches) {
   // 1024px 이상에서 사용할 JavaScript
   iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
-} else if(matchMedia("screen and (max-width: 1024px)").matches){
+} else if (matchMedia("screen and (max-width: 1024px)").matches) {
   // 1024px 미만에서 사용할 JavaScript
   iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
 }
@@ -311,5 +312,3 @@ async function apiStart() {
   ieFireFoxEffect();
 }
 apiStart();
-
-

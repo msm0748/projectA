@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/swiper.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" media="all and (max-width: 1024px)" href="./css/style_1024.css">
-    <script src="./js/swiper.min.js"></script>
+    <link rel="stylesheet" media="all and (max-width: 768px)" href="./css/style_768.css">
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.1/dist/polyfill.min.js"></script>
     <!-- ie promise 사용 가능 srcript -->
     <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0/dist/fetch.umd.min.js"></script>
@@ -18,26 +18,29 @@
     <!-- ie async 사용 가능 srcript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
     <!-- ie async 사용 가능 srcript -->
+
 </head>
 
 <body>
     <header>
         <div class="inner">
-            <a href="/" class="logo"><span>영화</span></a>
+            <a href="index.html" class="logo"><span>영화</span></a>
             <div class="login"><a href="login.html">로그인</a></div>
             <ul class="user">
-                <li id="userName"></li>
+                <li id="nickName"></li>
                 <li id="logOut">로그아웃</li>
             </ul>
         </div>
     </header>
     <div class="movie__search">
-      <span>출처 : 한국영화데이터베이스</span>
-        <form id="search__form" class="search__form"  autocomplete="off">
-                <input id="search__value" type="text" name="search" placeholder="영화명 검색">
-                <button type="submit" class="search__btn"><span class="search__icon"></span></button>
-        </form>
-        <span>영화 제목으로 검색이 가능합니다.</span>
+        <div class="inner">
+          <span>출처 : 한국영화데이터베이스</span>
+            <form id="search__form" class="search__form"  autocomplete="off">
+                    <input id="search__value" type="text" name="search" placeholder="영화명 검색">
+                    <button type="submit" class="search__btn"><span class="search__icon"></span></button>
+            </form>
+            <span>영화 제목으로 검색이 가능합니다.</span>
+        </div>
     </div>
     <div class="search__menu">
         <input type="checkbox" id="arrow">
@@ -47,6 +50,7 @@
             </div>
             <div class="modal">
                 <div class="modal_body">
+                    <i class="x__btn"></i>
                     <div class="contents">
                         <div class="poster"><img src="" alt=""></div>
                         <ul class="detail">
@@ -54,19 +58,14 @@
                             <li class="open__date"></li>
                             <li class="nation"></li>
                             <li class="etc">
-                                <ul>
-                                    <li>개요 : </li>
-                                    <li class="genre"></li>
-                                    <li class="rating"></li>
-                                    <li class="runtime"></li>
-                                </ul>
+                               <span>개요 : </span><span class="genre"></span><span class="rating"></span><span class="runtime"></span>
                             </li>
                             <li class="company"></li>
                             <li class="director__name"></li>
                             <li class="actor__name"></li>
                         </ul>
-                        <p class="plot"></p>
                     </div>
+                    <p class="plot"></p>
                 </div>
             </div>
         </div>
@@ -78,6 +77,7 @@
     </div>
     <div class="sec01">
         <div class="inner">
+            <div class="boxoffice__ranking"><span class="date"></span> 기준, 일별 관객수 순위</div>
             <div class="swiper swiper-container">
                 <ol class="swiper-wrapper">
                     <li class="swiper-slide poster0">
@@ -121,10 +121,10 @@
                         <img src="" alt="">
                     </li>
                 </ol>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+
             </div>
-            <h4 class="boxoffice__ranking">▲ 해당 순위는 일별 관객수로 산정되었습니다.</h4>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </div>
     <div class="sec02">
@@ -170,6 +170,7 @@
             </div>
         </div>
     </footer>
+    <script src="./js/swiper.min.js"></script>
     <script src="./js/login.js"></script>
     <script src="./js/MultiClamp.js"></script>
     <script type="text/babel" src="./js/index.js"></script>

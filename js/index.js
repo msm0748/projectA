@@ -8,6 +8,9 @@ let year = day.getFullYear();
 let month = ("0" + (day.getMonth() + 1)).slice(-2); // 1자리수 일때를 대비해서 0을 붙인 뒤 뒤에서 2글자만 추출
 let date = ("0" + (day.getDate() - 1)).slice(-2); // 박스 오피스는 어제 날짜로 반영이 되서 1일을 뺐음
 
+const dateSpan = document.querySelector(".date");
+dateSpan.innerText = `${year}. ${month}. ${date}`;
+
 const iframe = document.getElementById("iframe");
 let movieDetailArray = [];
 let movieDetailObject = {};
@@ -17,7 +20,7 @@ let yesterday = `&targetDt=${year}${month}${date}`;
 
 async function boxofficeFnc() {
   const boxOfficeKey = `?key=99e85df0a1949ff62718d3cd83fa4bb1`;
-  let moveLankingUrl = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json${boxOfficeKey}${yesterday}`;
+  const moveLankingUrl = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json${boxOfficeKey}${yesterday}`;
   const response = await fetch(moveLankingUrl);
   const data = await response.json();
   let openDays = [];
@@ -37,7 +40,7 @@ async function boxofficeFnc() {
 
 async function moviePosterFnc(movieName, movieOpenDate) {
   for (let i = 0; i < movieName.length; i++) {
-    let moviePosterValue = {
+    const moviePosterValue = {
       key: `?ServiceKey=RKHFT107IUJ283GC7UPM`,
       collection: `&collection=kmdb_new2`,
       title: `&title=${movieName[i]}`,
@@ -47,9 +50,9 @@ async function moviePosterFnc(movieName, movieOpenDate) {
     // if (movieName[i].indexOf("!") !== -1)
     //   moviePosterValue.title = `&query=${movieName[i].replace(/!/g, "")}`;
     // kmdb에서 제목에 ! 있으면 제대로 찾질 못함
-    let url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.openDay}${moviePosterValue.sort}`;
-    let response = await fetch(url);
-    let data = await response.json();
+    const url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.openDay}${moviePosterValue.sort}`;
+    const response = await fetch(url);
+    const data = await response.json();
     const dataResult = data.Data[0].Result[0];
     let posters = dataResult.posters;
     let mainPoster = posters.split("|")[0]; //여러개 이미지를 |를 기준으로 잘라서 첫번째 배열을 가져오기
@@ -208,9 +211,9 @@ let loopActiveIndex;
 function swiper() {
   const swiper = new Swiper(".swiper", {
     effect: "coverflow",
+    slidesPerView: "auto",
     grabCursor: true,
     centeredSlides: true,
-    slidesPerView: "auto",
     loop: true,
     coverflowEffect: {
       rotate: 20,
@@ -255,38 +258,34 @@ function loadingRemoveTag() {
   etc.classList.add("line");
 }
 
-function ieFireFoxEffect() {
-  var agent = navigator.userAgent.toLowerCase();
-
-  if (
-    (navigator.appName == "Netscape" &&
-      navigator.userAgent.search("Trident") != -1) ||
-    agent.indexOf("msie") != -1 ||
-    agent.indexOf("firefox") != -1
-  ) {
-    for (let i = 0; i < movieDetailArray.length; i++) {
-      var gradient =
-        "linear-gradient(to top, rgba(30, 31, 33, 0.6) 10%, rgba(30, 31, 33, 0.8) 25%, rgb(30, 31, 33) 30%)";
-      document.styleSheets[0].insertRule(
-        `.poster${i}::after{background-image:${gradient}, url('${movieDetailArray[i].poster}');}`,
-        0
-      );
-    }
+function reflectEffect() {
+  var bodyTag = document.body;
+  var bodyBackColor = document.defaultView
+    .getComputedStyle(bodyTag)
+    .getPropertyValue("background-color");
+  var bodyRGB = bodyBackColor.substring(
+    bodyBackColor.indexOf("(") + 1,
+    bodyBackColor.indexOf(")")
+  );
+  for (let i = 0; i < movieDetailArray.length; i++) {
+    var gradient = `linear-gradient(to top, rgba(${bodyRGB}, 0.6) 10%, rgba(${bodyRGB}, 0.8) 25%, rgb(${bodyRGB}) 30%)`;
+    document.styleSheets[0].insertRule(
+      `.poster${i}::after{background-image:${gradient}, url('${movieDetailArray[i].poster}');}`,
+      0
+    );
   }
 }
 const iframeDiv = document.querySelector(".iframe");
-function resizeFcn() {
-  // loadSizeFcn();
+(function resizeFcn() {
   window.addEventListener("resize", function () {
-    // console.log(iframeDiv.clientHeight);
     if (this.innerWidth < "1024") {
       iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
     } else {
       iframeDiv.style.height = "auto";
     }
   });
-}
-resizeFcn();
+})();
+
 if (matchMedia("screen and (max-width: 760px)").matches) {
   // 1024px 이상에서 사용할 JavaScript
   iframeDiv.style.height = iframeDiv.clientWidth * 0.5625 + "px";
@@ -309,6 +308,6 @@ async function apiStart() {
   posterTag();
   swiper();
   posterClick();
-  ieFireFoxEffect();
+  reflectEffect();
 }
 apiStart();

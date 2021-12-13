@@ -1,9 +1,11 @@
 @charset "utf-8";
 
-.inner {
-    padding: 0 20px;
-}
 
+.search__contents .modal .modal_body {
+    width: 90%;
+    max-height: 80%;
+    padding: 20px;
+  }
 
 .sec02 .inner {
     flex-direction: column;
@@ -17,4 +19,9 @@
 
 .sec02 .inner .detail {
     width: 100%;
+}
+
+.search__menu .modal.show ul li.actor__name{
+    padding-left: 47px;
+    text-indent: -47px;
 }

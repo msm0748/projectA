@@ -5,23 +5,23 @@ loginBtn.addEventListener('click', function(e) {
     window.open('login.html', 'subPage', "width=570, height=350, resizable = no, scrollbars = no");
 });
 
-function userNameCheck() {
-    const userName = document.getElementById("userName");
+function nickNameCheck() {
+    const nickName = document.getElementById("nickName");
     const userUl = document.querySelector(".user");
     const loginTag = document.querySelector(".login");
 
-    if (localStorage.getItem('userName')) {
+    if (localStorage.getItem('nickName')) {
         userUl.style.display = "flex";
         loginTag.style.display = "none";
-        userName.innerText = localStorage.getItem('userName') + "님";
+        nickName.innerText = localStorage.getItem('nickName') + "님";
     } else {
         userUl.style.display = "none";
         loginTag.style.display = "block";
     }
 }
-userNameCheck();
+nickNameCheck();
 const logOut = document.getElementById("logOut");
 logOut.addEventListener("click", function() {
     localStorage.clear();
-    userNameCheck();
+    nickNameCheck();
 })

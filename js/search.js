@@ -59,8 +59,8 @@ async function movieSearchFnc(movieName) {
     const plots = dataResult[i].plots.plot[0].plotText;
     const company = dataResult[i].company.replace(/,/g, ", ");
     let title = dataResult[i].title;
-    title = title.replace(/\!HS/g, "");
-    title = title.replace(/\!HE/g, "");
+    title = title.replace(/\!HS|\!HE/g, "");
+    // title = title.replace(/\!HE/g, "");
     title = title.replace(/^\s+|\s+$/g, "");
     title = title.replace(/ +/g, " ");
     if (
@@ -186,9 +186,10 @@ function movieClick() {
 }
 
 const body = document.querySelector("body");
+const xBtn = document.querySelector(".x__btn");
 
 body.addEventListener("click", (event) => {
-  if (event.target === modal) {
+  if (event.target === modal || event.target === xBtn) {
     modal.classList.toggle("show");
 
     if (!modal.classList.contains("show")) {
@@ -203,10 +204,10 @@ const modalMovieNameLi = modal.querySelector(".movie__name strong");
 const modalOpeningDateLi = modal.querySelector(".open__date");
 const modalDirectorNmLi = modal.querySelector(".director__name");
 const modalActorNmLi = modal.querySelector(".actor__name");
-const modalGenreLi = modal.querySelector(".genre");
 const modalNationLi = modal.querySelector(".nation");
-const modalRatingLi = modal.querySelector(".rating");
-const modalRuntimeLi = modal.querySelector(".runtime");
+const modalGenreSpan = modal.querySelector(".genre");
+const modalRatingSpan = modal.querySelector(".rating");
+const modalRuntimeSpan = modal.querySelector(".runtime");
 const modalCompanyLi = modal.querySelector(".company");
 const modalPlotP = modal.querySelector(".plot");
 
@@ -246,9 +247,9 @@ function kmdbFn(
   }
   actorTextnode = actorTextnode.slice(0, -2);
   modalActorNmLi.innerText = actorTextnode;
-  modalRuntimeLi.innerText = `${runtime}분`;
-  modalGenreLi.innerText = genre;
-  modalRatingLi.innerText = rating;
+  modalGenreSpan.innerText = genre;
+  modalRatingSpan.innerText = rating;
+  modalRuntimeSpan.innerText = `${runtime}분`;
   modalNationLi.innerText = `국가 : ${nation}`;
   modalCompanyLi.innerText = `제작사 : ${company}`;
   modalPlotP.innerText = `${plots}`;

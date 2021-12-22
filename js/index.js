@@ -1,6 +1,6 @@
-if (window.location.protocol === "https:") {
-  window.location.href = window.location.href.replace("https:", "http:");
-} //학원페이지가 https 일 경우 kmdb api요청 안되서 http로 변환
+// if (window.location.protocol === "https:") {
+//   window.location.href = window.location.href.replace("https:", "http:");
+// } //학원페이지가 https 일 경우 kmdb api요청 안되서 http로 변환
 
 let day = new Date();
 

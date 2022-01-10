@@ -1,30 +1,32 @@
-const form = document.querySelector("#search__form");
-const searchContents = document.querySelector(".search__contents");
-let searchValue;
+const $form = document.querySelector("#search__form");
+const $searchContents = document.querySelector(".search__contents");
 let movieNames = new Array();
 let openDate = new Array();
 
-const ani = document.querySelector(".search__contents .inner");
-const movieList = document.querySelector(".search__detail");
+const $ani = document.querySelector(".search__contents .inner");
+const $movieList = document.querySelector(".search__detail");
 
-const contentArrow = document.querySelector(".search__menu label");
-contentArrow.addEventListener("click", function () {
-  ani.style.animationName = "none";
+const $contentArrow = document.querySelector(".search__menu label");
+$contentArrow.addEventListener("click", function () {
+  $ani.style.animationName = "none";
 });
 
 const errLi = document.createElement("li");
 
-form.addEventListener("submit", function (e) {
+$form.addEventListener("submit", function (e) {
   e.preventDefault();
-  searchContents.style.display = "block";
-  contentArrow.style.display = "block";
-  searchValue = document.getElementById("search__value").value;
-  searchValue = encodeURIComponent(searchValue);
-  movieSearchFnc(searchValue).catch((err) => {
-    // const errLi = document.createElement("li");
+  let $searchValue = document.getElementById("search__value").value;
+  $searchValue = encodeURIComponent($searchValue);
+  if($searchValue === ""){
+    alert("검색어를 입력해 주세요!");
+    return false;
+  }
+  $searchContents.style.display = "block";
+  $contentArrow.style.display = "block";
+  movieSearchFnc($searchValue).catch((err) => {
     errLi.classList.add("search__err");
     errLi.innerText = "검색 결과가 없습니다.";
-    movieList.appendChild(errLi);
+    $movieList.appendChild(errLi);
   });
 });
 
@@ -41,8 +43,8 @@ async function movieSearchFnc(movieName) {
   let url = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp${moviePosterValue.key}${moviePosterValue.collection}${moviePosterValue.title}${moviePosterValue.sort}`;
   let response = await fetch(url);
   let data = await response.json();
-  while (movieList.hasChildNodes()) {
-    movieList.removeChild(movieList.firstChild);
+  while ($movieList.hasChildNodes()) {
+    $movieList.removeChild($movieList.firstChild);
   } //이미 movieList가 있는경우 초기화(쌓이는거 방지)
   const dataResult = data.Data[0].Result;
   let searchMovieObj = {};
@@ -97,9 +99,9 @@ async function movieSearchFnc(movieName) {
 }
 function ellipsis() {
   if (navigator.userAgent.match(/Trident\/7\./)) {
-    var ellipsis = document.querySelectorAll(".ellipsis");
-    for (var i = 0; i < ellipsis.length; i++) {
-      new MultiClamp(ellipsis[i], {
+    var $ellipsis = document.querySelectorAll(".ellipsis");
+    for (var i = 0; i < $ellipsis.length; i++) {
+      new MultiClamp($ellipsis[i], {
         ellipsis: "...",
         clamp: 3,
       });
@@ -137,24 +139,24 @@ function createMovieTag() {
       movieArt.appendChild(ratingTag);
       movieArt.appendChild(plotTag);
       movieListLi.appendChild(movieArt);
-      movieList.appendChild(movieListLi);
+      $movieList.appendChild(movieListLi);
     }
     ellipsis();
   } else {
     errLi.classList.add("search__err");
     errLi.innerText = "검색 결과가 없습니다.";
-    movieList.appendChild(errLi);
+    $movieList.appendChild(errLi);
   }
 }
 
 function movieClick() {
-  let movieListLiIndex = movieList.querySelectorAll("li .detail__link");
-  if (movieListLiIndex) {
-    for (let i = 0; i < movieListLiIndex.length; i++) {
-      movieListLiIndex[i].addEventListener("click", function () {
-        modal.classList.toggle("show");
-        if (modal.classList.contains("show")) {
-          body.style.overflow = "hidden";
+  const $movieListLiIndex = $movieList.querySelectorAll("li .detail__link");
+  if ($movieListLiIndex) {
+    for (let i = 0; i < $movieListLiIndex.length; i++) {
+      $movieListLiIndex[i].addEventListener("click", function () {
+        $modal.classList.toggle("show");
+        if ($modal.classList.contains("show")) {
+          $body.style.overflow = "hidden";
         }
         const title = searchMovieArray[i].title;
         const poster = searchMovieArray[i].poster;
@@ -185,31 +187,31 @@ function movieClick() {
   }
 }
 
-const body = document.querySelector("body");
-const xBtn = document.querySelector(".x__btn");
+const $body = document.querySelector("body");
+const $xBtn = document.querySelector(".x__btn");
 
-body.addEventListener("click", (event) => {
-  if (event.target === modal || event.target === xBtn) {
-    modal.classList.toggle("show");
+$body.addEventListener("click", (event) => {
+  if (event.target === $modal || event.target === $xBtn) {
+    $modal.classList.toggle("show");
 
-    if (!modal.classList.contains("show")) {
-      body.style.overflow = "auto";
+    if (!$modal.classList.contains("show")) {
+      $body.style.overflow = "auto";
     }
   }
 });
 
-const modal = document.querySelector(".modal");
-const modalPosterImg = modal.querySelector(".poster img");
-const modalMovieNameLi = modal.querySelector(".movie__name strong");
-const modalOpeningDateLi = modal.querySelector(".open__date");
-const modalDirectorNmLi = modal.querySelector(".director__name");
-const modalActorNmLi = modal.querySelector(".actor__name");
-const modalNationLi = modal.querySelector(".nation");
-const modalGenreSpan = modal.querySelector(".genre");
-const modalRatingSpan = modal.querySelector(".rating");
-const modalRuntimeSpan = modal.querySelector(".runtime");
-const modalCompanyLi = modal.querySelector(".company");
-const modalPlotP = modal.querySelector(".plot");
+const $modal = document.querySelector(".modal");
+const $modalPosterImg = $modal.querySelector(".poster img");
+const $modalMovieNameLi = $modal.querySelector(".movie__name strong");
+const $modalOpeningDateLi = $modal.querySelector(".open__date");
+const $modalDirectorNmLi = $modal.querySelector(".director__name");
+const $modalActorNmLi = $modal.querySelector(".actor__name");
+const $modalNationLi = $modal.querySelector(".nation");
+const $modalGenreSpan = $modal.querySelector(".genre");
+const $modalRatingSpan = $modal.querySelector(".rating");
+const $modalRuntimeSpan = $modal.querySelector(".runtime");
+const $modalCompanyLi = $modal.querySelector(".company");
+const $modalPlotP = $modal.querySelector(".plot");
 
 function kmdbFn(
   title,
@@ -225,32 +227,27 @@ function kmdbFn(
   company
 ) {
   let actorTextnode = "배우 : ";
-  modalMovieNameLi.innerText = title;
-  modalPosterImg.src = poster;
-  modalOpeningDateLi.innerText = `개봉 : ${openingDate.replace(
+  $modalMovieNameLi.innerText = title;
+  $modalPosterImg.src = poster;
+  $modalOpeningDateLi.innerText = `개봉 : ${openingDate.replace(
     /(\d{4})(\d{2})(\d{2})/g,
     "$1. $2. $3"
   )}`;
-  modalDirectorNmLi.innerText = `감독 : ${directorNm}`;
-  modalActorNmLi.innerText = "";
-  if (actor.length > 1) {
-    for (let i = 0; i < actor.length; i++) {
-      if (actor.length >= 4) {
-        // 배우 최대 5명만 출력
-        if (i <= 4) {
-          actorTextnode += `${actor[i].actorNm}, `;
-        }
-      } else {
-        actorTextnode += `${actor[i].actorNm}, `;
-      }
-    }
-  }
+  $modalDirectorNmLi.innerText = `감독 : ${directorNm}`;
+  $modalActorNmLi.innerText = "";
+
+  const actorText = actor.filter((value, index) => {
+    return index < 4;
+  });
+  actorText.forEach((value) => {
+    actorTextnode += `${value.actorNm}, `;
+  });
   actorTextnode = actorTextnode.slice(0, -2);
-  modalActorNmLi.innerText = actorTextnode;
-  modalGenreSpan.innerText = genre;
-  modalRatingSpan.innerText = rating;
-  modalRuntimeSpan.innerText = `${runtime}분`;
-  modalNationLi.innerText = `국가 : ${nation}`;
-  modalCompanyLi.innerText = `제작사 : ${company}`;
-  modalPlotP.innerText = `${plots}`;
+  $modalActorNmLi.innerText = actorTextnode;
+  $modalGenreSpan.innerText = genre;
+  $modalRatingSpan.innerText = rating;
+  $modalRuntimeSpan.innerText = `${runtime}분`;
+  $modalNationLi.innerText = `국가 : ${nation}`;
+  $modalCompanyLi.innerText = `제작사 : ${company}`;
+  $modalPlotP.innerText = `${plots}`;
 }

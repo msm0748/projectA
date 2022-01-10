@@ -9,7 +9,7 @@
     />
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="./css/swiper.min.css">
-
+    <link rel="stylesheet" href="./css/notice.min.css">
     <!-- Demo styles -->
     <style>
       html,
@@ -84,9 +84,20 @@
 
     <!-- Swiper JS -->
     <script src="./js/swiper.min.js"></script>
-
+    <script src="./js/notice.min.js"></script>
     <!-- Initialize Swiper -->
     <script>
+      const instance = new Notice();
+      instance.showLoading({
+  // type: 'line',
+  title: '영화 정보를 불러오는 중입니다.',
+    fontSize: 20,
+});
+
+setTimeout(() => {
+  instance.hideLoading();
+},3000)
+
       var swiper = new Swiper(".mySwiper", {
         effect: "coverflow",
     grabCursor: true,
